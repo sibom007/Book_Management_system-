@@ -84,13 +84,15 @@ model Book {
 model Chapter {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String
-  bookId    String   @db.ObjectId // Foreign key to Book
-  book      Book     @relation(fields: [bookId], references: [id]) // Many-to-one relationship with Book  questions Question[] // One-to-many relationship with Question
+  content   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   Question Question[]
+  bookId    String   @db.ObjectId // Foreign key to Book
   userId   String?    @db.ObjectId
+
+  book      Book     @relation(fields: [bookId], references: [id])
   User     User?      @relation(fields: [userId], references: [id])
 }
 

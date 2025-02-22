@@ -28,25 +28,25 @@ const Navbar = () => {
       ease: "power3.out",
       stagger: 0.2,
     });
-    tl.from(".nav-icon", {
-      y: -100,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      stagger: 0.2,
-    });
-    tl.from(".nav-icon", {
-      y: -100,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      stagger: 0.2,
-    });
-    tl.from(".nav-icon", {
-      y: -100,
-      opacity: 0,
-      duration: 1,
-    });
+    // tl.from(".nav-icon", {
+    //   y: -100,
+    //   opacity: 0,
+    //   duration: 1,
+    //   ease: "power3.out",
+    //   stagger: 0.2,
+    // });
+    // tl.from(".nav-icon", {
+    //   y: -100,
+    //   opacity: 0,
+    //   duration: 1,
+    //   ease: "power3.out",
+    //   stagger: 0.2,
+    // });
+    // tl.from(".nav-icon", {
+    //   y: -100,
+    //   opacity: 0,
+    //   duration: 1,
+    // });
   });
 
   useGSAP(() => {
@@ -135,13 +135,12 @@ const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Image
-                src={
-                  "https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                }
+                src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?q=80&w=1931&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="No img"
                 width={50}
                 height={50}
                 className="object-cover rounded-bl-2xl rounded-tr-2xl"
+                style={{ width: "auto", height: "auto" }} // Ensure the aspect ratio is maintained
               />
             </DropdownMenuTrigger>
 

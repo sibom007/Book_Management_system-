@@ -1,6 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
-import { signUp } from "../server/authActions";
 import { toast } from "sonner";
+import { signUp } from "../server/authActions";
+import { useMutation } from "@tanstack/react-query";
 
 const useSignUp = () => {
   return useMutation({

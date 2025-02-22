@@ -4,6 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import {
   Drawer,
@@ -11,25 +12,27 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
+  DrawerDescription,
 } from "@/components/ui/drawer";
-import BookAddForm from "./BookAddForm";
 import Header from "@/components/Header";
+import AddChapterForm from "./AddChapterForm";
 import { Button } from "@/components/ui/button";
 
-const AddBook = () => {
+const AddChapter = ({ BookId }: { BookId: string }) => {
   return (
     <div>
       <div className="hidden md:block">
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant={"secondary"}>Add Book</Button>
+            <Button variant={"secondary"}>Add Chapter</Button>
           </DialogTrigger>
           <DialogContent className="bg-black">
             <DialogHeader>
               <DialogTitle>
-                <Header name="Add some Book" variant="secondary" />
+                <Header name="Add Chapter" variant="secondary" />
               </DialogTitle>
-              <BookAddForm />
+              <AddChapterForm BookId={BookId} />
+              <DialogDescription></DialogDescription>
             </DialogHeader>
           </DialogContent>
         </Dialog>
@@ -37,17 +40,16 @@ const AddBook = () => {
       <div className="md:hidden">
         <Drawer>
           <DrawerTrigger asChild>
-            <Button variant={"secondary"}>Add Book</Button>
+            <Button variant={"secondary"}>Add Chapter</Button>
           </DrawerTrigger>
           <DrawerContent className="bg-black">
             <DrawerHeader>
               <DrawerTitle>
                 {" "}
-                <Header name="Add some Book" variant="secondary" />
+                <Header name="Add Chapter" variant="secondary" />
               </DrawerTitle>
-              <div>
-                <BookAddForm />
-              </div>
+              <AddChapterForm BookId={BookId} />
+              <DrawerDescription></DrawerDescription>
             </DrawerHeader>
           </DrawerContent>
         </Drawer>
@@ -55,4 +57,4 @@ const AddBook = () => {
     </div>
   );
 };
-export default AddBook;
+export default AddChapter;

@@ -1,12 +1,15 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
+import Link from "next/link";
+import { useGSAP } from "@gsap/react";
+import { Button } from "@/components/ui/button";
+
 import { useRef } from "react";
 
 interface BookCardProps {
   className: string;
   book: {
+    id: string;
     title: string;
     class: number;
     chapterCount: number;
@@ -51,7 +54,11 @@ const BookCard = ({ className, book }: BookCardProps) => {
         <h2 className="text-md font-medium">Chapter - {book?.chapterCount}</h2>
       </div>
       <div className="flex justify-between mt-4">
-        <Button variant={"primary"}>See More</Button>
+        <Button variant={"primary"}>
+          <Link href={`/dashboard/book/${book?.id}`} className="flex-1">
+            See More
+          </Link>
+        </Button>
       </div>
     </div>
   );
