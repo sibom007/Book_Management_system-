@@ -2,6 +2,7 @@
 import { prisma } from "@/lib/prisma";
 import { userAuthorised } from "@/utils/userAuthorised";
 
+
 export const AddChapter = async (payload: {
   title: string;
   content: string;
@@ -46,7 +47,7 @@ export const SelectChapter = async (BookId: string) => {
     select: {
       chapterCount: true, // Assuming `chapterCount` is stored in the book table
       chapters: {
-        select: { content: true }, // Fetch only the content field
+        select: { content: true, title: true }, // Fetch only the content field
       },
     },
   });

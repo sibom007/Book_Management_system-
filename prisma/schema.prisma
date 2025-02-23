@@ -79,7 +79,10 @@ model Book {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   userId       String    @db.ObjectId // Foreign key to User
+
   chapters     Chapter[] // One-to-many relationship with Chapter
+
+
   User         User      @relation(fields: [userId], references: [id])
 }
 
@@ -90,9 +93,9 @@ model Chapter {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  Question Question[]
   bookId    String   @db.ObjectId // Foreign key to Book
   userId   String?    @db.ObjectId
+  Question Question[]
 
   book      Book     @relation(fields: [bookId], references: [id])
   User     User?      @relation(fields: [userId], references: [id])
@@ -107,7 +110,6 @@ model Question {
 
   chapterId String  @db.ObjectId // Foreign key to Chapter
   userId   String    @db.ObjectId
-
   User     User      @relation(fields: [userId], references: [id])
   chapter   Chapter @relation(fields: [chapterId], references: [id]) 
 }

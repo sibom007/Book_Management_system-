@@ -9,6 +9,9 @@ export const AddQuestionToDB = async (payload: {
   contant: string;
   BookId: string;
 }) => {
+
+  console.log("🚀 ~ BookId:", payload.BookId);
+
   if (!payload.BookId) {
     throw new Error("BookId is required");
   }

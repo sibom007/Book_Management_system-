@@ -114,3 +114,23 @@ export const deleteBook = async (BookId: string) => {
   if (!result) throw new Error("Failed to delete book");
   return result;
 };
+
+export const BookWithAllInfo = async (BookId: string) => {
+  await userAuthorised();
+  const result = await prisma.book.findUniqueOrThrow({
+    where: {
+      id: BookId,
+    },
+    include: {
+      chapters: {
+        include: {
+          Question: true,
+        },
+      },
+    },
+  });
+  if (!result) {
+    throw new Error("Book not found");
+  }
+  return result;
+};
