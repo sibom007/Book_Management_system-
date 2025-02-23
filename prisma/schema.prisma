@@ -50,18 +50,20 @@ model User {
   password      String?
   emailVerified DateTime? @map("email_verified")
   image         String?
+  
   books         Book[] // One-to-many relationship with Book
   chapters      Chapter[] // One-to-many relationship with Chapter
   accounts      Account[]
   sessions      Session[]
+  Question      Question[]
 
   @@map("users")
 }
 
 model VerificationToken {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  identifier String
   token      String
+  identifier String
   expires    DateTime
 
   @@unique([identifier, token])
@@ -71,8 +73,8 @@ model VerificationToken {
 model Book {
   id           String    @id @default(auto()) @map("_id") @db.ObjectId
   title        String
-  author       String?
   class        Int
+  author       String?
   chapterCount Int
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
@@ -98,11 +100,14 @@ model Chapter {
 
 model Question {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  content   String
-  answer    String?
+  question   String
+  answer    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   chapterId String  @db.ObjectId // Foreign key to Chapter
-  chapter   Chapter @relation(fields: [chapterId], references: [id]) // Many-to-one relationship with Chapter  createdAt  DateTime  @default(now())
+  userId   String    @db.ObjectId
+
+  User     User      @relation(fields: [userId], references: [id])
+  chapter   Chapter @relation(fields: [chapterId], references: [id]) 
 }

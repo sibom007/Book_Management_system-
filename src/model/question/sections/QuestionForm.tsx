@@ -10,14 +10,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
-import { useAddChapter } from "../hooks/useAddChapter";
-import { useSelectChapter } from "../hooks/useSelectChapter";
 
-const AddChapterForm = ({ BookId }: { BookId: string }) => {
-  const [title, setTitle] = useState("");
+import { useSelectChapter } from "@/model/chapter/hooks/useSelectChapter";
+import { useAddQuestion } from "../hooks/useAddQuestion";
+
+const QuestionForm = ({ BookId }: { BookId: string }) => {
   const [contant, setContant] = useState("");
-  const { mutate, isPending } = useAddChapter();
+  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
 
+  const { mutate, isPending } = useAddQuestion();
   const { data, refetch } = useSelectChapter(BookId) ?? {
     totalChapters: 0,
     createdChapters: [],
@@ -33,7 +35,7 @@ const AddChapterForm = ({ BookId }: { BookId: string }) => {
   const chapters = useMemo(() => {
     return Array.from({ length: data?.totalChapters || 0 }, (_, i) => {
       const chapterValue = `CH${i + 1}`;
-      if (!data?.createdChapters.includes(chapterValue)) {
+      if (data?.createdChapters.includes(chapterValue)) {
         return { label: `Chapter ${i + 1}`, value: chapterValue };
       }
     }).filter(Boolean);
@@ -42,19 +44,22 @@ const AddChapterForm = ({ BookId }: { BookId: string }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Handle form submission here
-    console.log("Form submitted:", { title, contant });
-    mutate({ title, content: contant, bookId: BookId });
-    setTitle("");
-    setContant("");
+    const payload = {
+      question,
+      answer,
+      contant,
+      BookId,
+    };
+    mutate({ payload });
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <Select onValueChange={(value) => setContant(value)}>
+      <Select value={contant} onValueChange={(value) => setContant(value)}>
         <SelectTrigger className="w-full py-6 mb-4">
           <SelectValue placeholder="Select a chapter" />
         </SelectTrigger>
-        <SelectContent className="bg-black text-white h-52">
+        <SelectContent className="bg-black text-white ">
           {chapters.map((chapter) => (
             <SelectItem key={chapter?.value} value={chapter?.value || ""}>
               {chapter?.label}
@@ -63,14 +68,20 @@ const AddChapterForm = ({ BookId }: { BookId: string }) => {
         </SelectContent>
       </Select>
       <Input
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="Enter Chapter Name"
+        value={question}
+        onChange={(e) => setQuestion(e.target.value)}
+        placeholder="Enter Question Name"
+        className="mb-3"
+      />
+      <Input
+        value={answer}
+        onChange={(e) => setAnswer(e.target.value)}
+        placeholder="Enter Answer Name"
         className="mb-3"
       />
       <div className="flex justify-end">
         <DialogClose asChild>
-          <Button type="submit" disabled={isPending} variant={"secondary"}>
+          <Button type="submit" variant={"secondary"} disabled={isPending}>
             Submit
           </Button>
         </DialogClose>
@@ -79,4 +90,4 @@ const AddChapterForm = ({ BookId }: { BookId: string }) => {
   );
 };
 
-export default AddChapterForm;
+export default QuestionForm;

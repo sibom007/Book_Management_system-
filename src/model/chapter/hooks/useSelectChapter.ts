@@ -1,14 +1,16 @@
 import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
-import { ChapterSelect } from "../server/ChapterActions";
+
 import { CHAPTER_Constant } from "@/utils/ChapterConstant";
+import { SelectChapter } from "../server/ChapterActions";
 
 export const useSelectChapter = (BookId: string) => {
   return useQuery({
     queryKey: [CHAPTER_Constant.SELECT_CHAPTERS],
     queryFn: async () => {
       try {
-        return await ChapterSelect(BookId);
+        const { createdChapters, totalChapters } = await SelectChapter(BookId);
+        return { createdChapters, totalChapters };
       } catch (error) {
         if (error instanceof Error) {
           toast.error(

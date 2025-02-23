@@ -23,13 +23,7 @@ export const useAddChapter = () => {
     },
 
     onError: (error) => {
-      if (error instanceof Error) {
-        toast.error(
-          error.message || "An error occurred while adding the chapter"
-        );
-      } else {
-        toast.error("An unknown error occurred while adding the chapter");
-      }
+    toast.error(error.message || "An error occurred while adding the chapter");
     },
   });
 };
