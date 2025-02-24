@@ -1,20 +1,7 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { signOut } from "next-auth/react";
-
-const handlec = async () => {
-  const data = await signOut({ redirect: true, callbackUrl: "/auth" });
-  console.log("hello", data);
-};
+import LandingPage from "@/model/landingPage/sections/LandingPage";
 
 const Homepage = () => {
-  return (
-    <div className="bg-primary">
-      <Button className="bg-Sprimary" onClick={handlec}>
-        Logout
-      </Button>
-    </div>
-  );
+  return <LandingPage />
 };
 
 export default Homepage;

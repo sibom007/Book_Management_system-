@@ -55,7 +55,7 @@ const BookCard = ({ className, book }: BookCardProps) => {
       </div>
       <div className="flex justify-between mt-4">
         <Button variant={"primary"}>
-          <Link href={`/dashboard/book/${book?.id}`} className="flex-1">
+          <Link href={`book/${book?.id}`} className="flex-1">
             See More
           </Link>
         </Button>
